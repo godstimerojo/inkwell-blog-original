@@ -1,0 +1,63 @@
+<%- include('partials/header', { title }) %>
+<main class="blog-main" id="top">
+  <section class="blog-intro">
+    <p class="eyebrow">A personal corner of the internet</p>
+    <h1>Thoughts worth<br /><em>staying with.</em></h1>
+    <p>Write, revise, and keep the ideas that matter. Your posts live here until the server restarts.</p>
+    <a class="compose-button" href="/posts/new">Write a post <span>→</span></a>
+  </section>
+
+  <section class="post-list" aria-labelledby="posts-heading">
+    <div class="section-heading">
+      <p class="eyebrow" id="posts-heading">My journal</p>
+      <span><%= posts.length %> post<%= posts.length === 1 ? '' : 's' %></span>
+    </div>
+
+    <% if (posts.length) { %>
+  <div class="post-grid">
+    <% posts.forEach((post) => { %>
+      <article class="post-card">
+        <p class="meta">
+          Personal note
+          <i></i>
+          <%= post.createdAt.toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+          }) %>
+        </p>
+
+        <h2><%= post.title %></h2>
+
+        <p class="post-excerpt"><%= post.content %></p>
+
+        <div class="post-actions">
+          <a href="/posts/<%= post.id %>/edit">
+            Edit post <span>↗</span>
+          </a>
+
+          <form method="POST" action="/posts/<%= post.id %>/delete">
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+<% } else { %>
+  <div class="empty-state">
+    <span>✦</span>
+
+    <h2>Your journal is waiting.</h2>
+
+    <p>
+      There are no posts yet. Start with an idea you want to keep.
+    </p>
+
+    <a class="compose-button" href="/posts/new">
+      Write your first post <b>→</b>
+    </a>
+  </div>
+<% } %>
+  </section>
+</main>
+<%- include('partials/footer') %>

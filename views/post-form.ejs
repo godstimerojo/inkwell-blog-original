@@ -1,0 +1,52 @@
+<%- include('partials/header', { title }) %>
+<main class="form-page">
+  <section class="editor">
+    <a class="back-link" href="/">← Back to my posts</a>
+
+    <p class="eyebrow">Inkwell editor</p>
+
+    <h1><%= heading %></h1>
+
+    <p class="editor-intro">
+      There is no need to make it perfect on the first pass.
+    </p>
+
+    <% if (typeof error !== 'undefined') { %>
+      <p class="form-error"><%= error %></p>
+    <% } %>
+
+    <form class="post-form" action="<%= action %>" method="POST">
+      <label for="title">Title</label>
+
+      <input
+        id="title"
+        name="title"
+        type="text"
+        value="<%= post.title || '' %>"
+        placeholder="Give this thought a name"
+        maxlength="120"
+        required
+        autofocus
+      />
+
+      <label for="content">Your post</label>
+
+      <textarea
+        id="content"
+        name="content"
+        rows="12"
+        placeholder="Begin writing here..."
+        required
+      ><%= post.content || '' %></textarea>
+
+      <div class="editor-actions">
+        <a href="/">Cancel</a>
+
+        <button type="submit">
+          <%= buttonLabel %> <span>→</span>
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
+<%- include('partials/footer') %>
